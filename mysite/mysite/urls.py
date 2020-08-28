@@ -18,6 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('polls/', include('polls.urls')),
+    path('', include('polls.urls')),
     path('admin/', admin.site.urls),
 ]
 '''Функция path () передает четыре аргумента, два обязательных: route и view и два
