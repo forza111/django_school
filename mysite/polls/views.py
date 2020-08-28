@@ -1,11 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from . models import Question
+from django.template import loader
+from django.shortcuts import render
+from .models import Question
+
 
 def index(request):
-    latest_requestion_list = Question.objects.order_by('-pub_date')[:5]
-    output = ','.join([q.question_text for q in latest_requestion_list])
-    return HttpResponse(output)
+    latest_question_list = Question.objects.order_by('-pub_date')[:5]
+    context = {'latest_question_list':
+            latest_question_list,
+               }
+    return render(request, 'polls/index.html', context)
+'''ункция render() принимает объект запроса в качестве первого аргумента, имя шаблона в качестве второго 
+аргумента и словарь в качестве необязательного третьего аргумента. Она возвращает объект HttpResponse данного 
+шаблона, отображенный в данном контексте.'''
 
 def detail(request, question_id):
     return HttpResponse("You're looking at question %s" %question_id )
