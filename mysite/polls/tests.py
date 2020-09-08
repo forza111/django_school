@@ -25,6 +25,11 @@ class QuestionIndexViewTests(TestCase):
         response = self.client.get(reverse('polls:index'))
         self.assertEqual(response.status_code,200)
         self.assertContains(response,'No polls are available')
+        '''
+        assertContains checks that the server response "response" 
+        contains text: 
+        "No polls are available" 
+        '''
         self.assertQuerysetEqual(response.context['latest_question_list'], [])
 
     def test_past_question(self):
@@ -67,7 +72,7 @@ class QuestionIndexViewTests(TestCase):
         response = self.client.get(reverse('polls:index'))
         self.assertQuerysetEqual(
             response.context['latest_question_list'],
-            ['<Question: Past question 2.>','<Question: Past question 1.>']
+            ['<Question: Past question 1.>','<Question: Past question 2.>']
         )
 
 
@@ -77,7 +82,14 @@ class QuestionModelTests(TestCase):
         for questions whose pub_date is in the future'''
         time = timezone.now() + datetime.timedelta(days=30)
         future_question = Question(pub_date = time)
-        self.assertIs(future_question.was_published_recently(), False)
+        self.assertIs(future_question.was_published_recently(), True)
+        '''
+        assertIs compare
+        first argument - "(future_question.was_published_recently())" and 
+        second argument - "False"
+        if first argument not= second argument Test FAILED
+        '''
+
 
     def tests_was_published_recently_with_old_question(self):
         '''was_published_recently() returns False for questions whose pub_date
