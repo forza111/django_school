@@ -4,7 +4,7 @@ from django.urls import reverse
 
 import datetime
 
-from .models import Question
+from .models import Question, Choice
 
 
 def create_question(question_text,days):
@@ -15,6 +15,9 @@ def create_question(question_text,days):
     '''
     time = timezone.now() + datetime.timedelta(days=days)
     return Question.objects.create(question_text=question_text, pub_date = time)
+
+def create_choice(question, choice_text):
+    return Choice.objects.create(question=question,choice_text=choice_text)
 
 
 class QuestionIndexViewTests(TestCase):
@@ -135,3 +138,22 @@ class QuestionDetailViewTests(TestCase):
         url = reverse('polls:detail', args=(past_question.id,))
         response = self.client.get(url)
         self.assertContains(response, past_question.question_text)
+
+    def test_quantity_less_then_two_choice(self):
+        '''
+        The detail view of a question displays only with quantity choice >=2
+        '''
+        first_question = create_question(question_text='First Question', days=-5)
+        first_choice = create_choice(first_question, 'first choice')
+        second_choice = create_choice(first_question, 'second choice')
+
+
+        second_question = create_question(question_text='Second Question', days=-5)
+
+
+        self.assertContains(response,'No polls are available')
+        '''
+        assertContains checks that the server response "response" 
+        contains text: 
+        "No polls are available" 
+        '''
