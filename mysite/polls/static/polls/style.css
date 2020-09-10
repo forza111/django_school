@@ -1,0 +1,11 @@
+li a {
+color: blue;
+}
+
+body{
+background: white url('images/background.gif')no-repeat center top fixed;
+-webkit-background-size:100% 100%;
+-moz-background-size: 100% 100%;
+-o-background-size: 100% 100%;
+background-size: 100% 100%;
+}
