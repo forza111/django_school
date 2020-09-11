@@ -8,11 +8,13 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
+
 {% if latest_question_list  %}
 <ul>
+    <h1>Главные вопросы на повестке дня</h1>
     {% for question in latest_question_list %}
     {% if question.choice_set.count >= 2 %}
-    <li><a href="{% url 'polls:detail'  question.id%}"> {{ question.question_text }}"
+    <li><a href="{% url 'polls:detail'  question.id%}"> {{ question.question_text }}
     </a></li>
     {% endif %}
     {% endfor %}

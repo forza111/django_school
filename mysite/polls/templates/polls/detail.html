@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
 
 <h1>{{ question.question_text }}</h1>
 
